@@ -1,0 +1,15 @@
+[
+    {
+      "title": "React Developer Certificate",
+      "issuer": "Udemy",
+      "date": "2024-01-15",
+      "image": "/path/to/your/certificate1.jpg"
+    },
+    {
+      "title": "Full-Stack Web Development",
+      "issuer": "Coursera",
+      "date": "2023-11-20",
+      "image": "/path/to/your/certificate2.jpg"
+    }
+  ]
+  
