@@ -6,80 +6,79 @@ const Certificate = () => {
   const theme = useTheme();
   const [selectedCert, setSelectedCert] = useState(null);
 
+  // Certificates list
   const certificates = [
     {
-      title: "React Developer Certificate",
-      issuer: "Meta",
-      Img: "./certificate.jpg",
-      link: "https://example.com/certificate/react"
+      title: "Web Developer Internship",
+      issuer: "OPRA IT Solution, Pune",
+      Img: "/opra.png", // replace with actual image path
+      link: "https://example.com/certificate/opra",
     },
     {
-      title: "JavaScript Mastery Certificate",
-      issuer: "Google",
-      Img: "./certificate.jpg",
-      link: "https://example.com/certificate/javascript"
+      title: "Web Development Internship",
+      issuer: "Anvistar ITS Pvt. Ltd., Pune",
+      Img: "/idea.jpg", // replace with actual image path
+      link: "https://example.com/certificate/anvistar",
     },
-    {
-      title: "Full-Stack Web Development",
-      issuer: "Udemy",
-      Img: "./certificate.jpg",
-      link: "https://example.com/certificate/fullstack"
-    },
-    {
-      title: "Backend Engineering",
-      issuer: "Coursera",
-      Img: "./certificate.jpg",
-      link: "https://example.com/certificate/backend"
-    },
-    {
-      title: "Advanced React",
-      issuer: "Frontend Masters",
-      Img: "./certificate.jpg",
-      link: "https://example.com/certificate/advanced-react"
-    }
   ];
 
   return (
-    <div className="container mx-auto flex flex-col justify-center items-center overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+    <div className="container mx-auto flex flex-col justify-center items-center py-10 px-4">
+      {/* Certificates Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
         {certificates.map((cert, index) => (
-          <div
+          <motion.div
             key={index}
-            data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-            data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+            whileHover={{ scale: 1.05 }}
             onClick={() => setSelectedCert(cert)}
-            className="cursor-pointer"
+            className="cursor-pointer flex justify-center"
           >
-            <motion.div whileHover={{ scale: 1.05 }} className="flex justify-center">
-              <div className="w-full max-w-sm p-4 bg-white h-70 shadow-lg rounded-lg">
-                <img
-                  src={cert.Img}
-                  alt={cert.title}
-                  className="w-full h-40 object-cover rounded-md"
-                />
-                <h3 className="mt-2 text-lg font-semibold text-gray-800">
-                  {cert.title}
-                </h3>
-                <p className="text-sm text-gray-600">{cert.issuer}</p>
-              </div>
-            </motion.div>
-          </div>
+            <div className="w-full max-w-sm p-4 bg-transperent shadow-lg rounded-lg hover:shadow-xl transition">
+              <img
+                src={cert.Img}
+                alt={cert.title}
+                className="w-full h-40 object-cover rounded-md"
+              />
+              <h3 className="mt-3 text-lg font-semibold text-white">
+                {cert.title}
+              </h3>
+              <p className="text-sm text-white">{cert.issuer}</p>
+            </div>
+          </motion.div>
         ))}
       </div>
+
+      {/* Selected Certificate Modal/Details */}
       {selectedCert && (
-        <div className="mt-10 p-6 bg-white shadow-lg rounded-lg w-3/4">
-          <h2 className="text-2xl font-semibold text-gray-800">{selectedCert.title}</h2>
-          <p className="text-gray-600 mb-4">{selectedCert.issuer}</p>
-          <img src={selectedCert.Img} alt={selectedCert.title} className="w-full h-auto rounded-md" />
-          <div className="mt-4 flex justify-center">
-            <a
-              href={selectedCert.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 z-50 px-4">
+          <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-2xl relative">
+            {/* Close Button */}
+            <button
+              className="absolute top-3 right-3 text-gray-600 hover:text-red-500 text-lg font-bold"
+              onClick={() => setSelectedCert(null)}
             >
-              View Full Certificate
-            </a>
+              ✕
+            </button>
+
+            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+              {selectedCert.title}
+            </h2>
+            <p className="text-gray-600 mb-4">{selectedCert.issuer}</p>
+            <img
+              src={selectedCert.Img}
+              alt={selectedCert.title}
+              className="w-full h-auto rounded-md border"
+            />
+            <div className="mt-5 flex justify-center">
+              <a
+                href={selectedCert.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                View Full Certificate
+              </a>
+            </div>
           </div>
         </div>
       )}

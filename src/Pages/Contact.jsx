@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Share2, User, Mail, MessageSquare, Send } from "lucide-react";
-import { Link } from "react-router-dom";
 import SocialLinks from "../components/SocialLinks";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -69,7 +68,7 @@ const ContactPage = () => {
   return (
     <>
       {/* ✅ Responsive Title Section */}
-      <div className="text-center pt-10 px-4 sm:px-10 bg-black">
+      <div className="text-center pt-10 px-4 sm:px-10 bg-black" id="Contact">
         <h2
           data-aos="fade-down"
           data-aos-duration="1000"
@@ -86,29 +85,31 @@ const ContactPage = () => {
         </p>
       </div>
 
-      {/* ✅ Responsive Contact Form Section */}
+      {/* ✅ Responsive Contact Section */}
       <div className="bg-black py-10 px-4 sm:px-10">
-        <div className="container mx-auto flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
+        <div className="container mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
           
           {/* ✅ Form Card */}
           <div
             data-aos="fade-right"
             data-aos-duration="1200"
-            className="bg-white/5 ml-20 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-10 w-full max-w-lg"
+            className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-10 w-full max-w-lg"
           >
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-2xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
+                <h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
                   Get in Touch
                 </h2>
-                <p className="text-gray-400">Have something to discuss? Let's talk.</p>
+                <p className="text-gray-400 text-sm sm:text-base">
+                  Have something to discuss? Let's talk.
+                </p>
               </div>
-              <Share2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#6366f1] opacity-50" />
+              <Share2 className="w-7 h-7 sm:w-9 sm:h-9 text-[#6366f1] opacity-50" />
             </div>
 
             {/* ✅ Contact Form */}
             <form
-              action="https://formsubmit.co/your-email@gmail.com"
+              action="https://formsubmit.co/harshads1433@gmail.com"
               method="POST"
               onSubmit={handleSubmit}
               className="space-y-5"
@@ -116,7 +117,7 @@ const ContactPage = () => {
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_captcha" value="false" />
 
-              {/* ✅ Name Input */}
+              {/* Name Input */}
               <div className="relative group">
                 <User className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
                 <input
@@ -131,7 +132,7 @@ const ContactPage = () => {
                 />
               </div>
 
-              {/* ✅ Email Input */}
+              {/* Email Input */}
               <div className="relative group">
                 <Mail className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
                 <input
@@ -146,7 +147,7 @@ const ContactPage = () => {
                 />
               </div>
 
-              {/* ✅ Message Input */}
+              {/* Message Input */}
               <div className="relative group">
                 <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
                 <textarea
@@ -160,22 +161,26 @@ const ContactPage = () => {
                 />
               </div>
 
-              {/* ✅ Submit Button */}
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white py-3 rounded-xl font-semibold hover:scale-105 transition disabled:opacity-50"
               >
-                <Send className="w-5 h-5 inline-block" /> {isSubmitting ? "Sending..." : "Send Message"}
+                <Send className="w-5 h-5 inline-block" />{" "}
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>
 
           {/* ✅ Social Links Section */}
-          <div className="mt-6 mr-20 pl-20 flex flex-wrap w-full justify-center">
+          <div
+            data-aos="fade-left"
+            data-aos-duration="1200"
+            className="w-full max-w-md flex justify-center lg:justify-start mt-6 lg:mt-0"
+          >
             <SocialLinks />
           </div>
-          
         </div>
       </div>
     </>
