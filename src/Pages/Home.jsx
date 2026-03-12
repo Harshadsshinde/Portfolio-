@@ -183,8 +183,7 @@ const Home = () => {
                 <p className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed font-light"
                   data-aos="fade-up"
                   data-aos-delay="1000">
-                  Menciptakan Website Yang Inovatif, Fungsional, dan User-Friendly untuk Solusi Digital.
-                </p>
+Passionate about building innovative, functional, and user-friendly websites that solve real digital problems.                </p>
 
                 {/* Tech Stack */}
                 <div className="flex flex-wrap gap-3 justify-start" data-aos="fade-up" data-aos-delay="1200">
@@ -220,11 +219,19 @@ const Home = () => {
                 }`}>
                 </div>
 
-                <div className={`relative z-10 w-full opacity-90 transform transition-transform duration-500 ${
-                  isHovering ? "scale-105" : "scale-100"
-                }`}>
-                  <DotLottieReact {...lottieOptions} />
-                </div>
+               <div className={`relative z-10 w-full opacity-90 transform transition-transform duration-500 ${
+  isHovering ? "scale-55" : "scale-50"
+}`}>
+  <img
+    src="/Coding.gif"
+    alt="Coding Animation"
+    className={`w-full h-full object-contain transition-all duration-500 ${
+      isHovering
+        ? "scale-[110%] rotate-2"
+        : "scale-[100%]"
+    }`}
+  />
+</div>
 
                 <div className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
                   isHovering ? "opacity-50" : "opacity-20"
