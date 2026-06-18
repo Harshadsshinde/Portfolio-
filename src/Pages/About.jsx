@@ -98,7 +98,7 @@ const ProfileImage = memo(() => (
           <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block" />
           
           <img
-            src="./img.jpg"
+            src="./image.png"
             alt="Profile"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
             loading="lazy"
@@ -217,7 +217,7 @@ const AboutPage = () => {
       icon: Globe,
       color: "from-[#6366f1] to-[#a855f7]",
       value: YearExperience,
-      label: "Years of Experience",
+      label: "Years of Experience 10 months ",
       description: "Continuous learning journey",
       animation: "fade-left",
     },
@@ -270,7 +270,7 @@ const AboutPage = () => {
               </p>
 
               <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
-                <a href="./resume.pdf" className="w-full lg:w-auto">
+                <a href="./Harshad_Shinde_Resume.pdf" className="w-full lg:w-auto">
                 <button 
                   data-aos="fade-up"
                   data-aos-duration="800"

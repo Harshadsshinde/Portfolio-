@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 // import { db, collection } from "../firebase";
 // import { getDocs } from "firebase/firestore";
 import PropTypes from "prop-types";
-// import SwipeableViews from "react-swipeable-views-core";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
@@ -16,7 +15,38 @@ import Certificate from "../components/Certificate";
 import { Code, Award, Boxes } from "lucide-react";
 import Projects from "../components/Project";
 
-// Separate ShowMore/ShowLess button component
+// ---------- Helper Components ----------
+function TabPanel({ children, value, index, ...other }) {
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: { xs: 1, sm: 3 } }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
+  };
+}
+
 const ToggleButton = ({ onClick, isShowingMore }) => (
   <button
     onClick={onClick}
@@ -75,37 +105,7 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
   </button>
 );
 
-function TabPanel({ children, value, index, ...other }) {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: { xs: 1, sm: 3 } }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
-
+// ---------- Main Component ----------
 const techStacks = [
   { icon: "html.svg", language: "HTML" },
   { icon: "css.svg", language: "CSS" },
@@ -132,36 +132,34 @@ export default function FullWidthTabs() {
   const initialItems = isMobile ? 4 : 6;
 
   useEffect(() => {
-    // Initialize AOS once
     AOS.init({
-      once: false, // This will make animations occur only once
+      once: false,
     });
   }, []);
 
   const fetchData = useCallback(async () => {
     try {
-      const projectCollection = collection(db, "projects");
-      const certificateCollection = collection(db, "certificates");
+      // Uncomment these when Firebase is set up
+      // const projectCollection = collection(db, "projects");
+      // const certificateCollection = collection(db, "certificates");
+      // const [projectSnapshot, certificateSnapshot] = await Promise.all([
+      //   getDocs(projectCollection),
+      //   getDocs(certificateCollection),
+      // ]);
+      // const projectData = projectSnapshot.docs.map((doc) => ({
+      //   id: doc.id,
+      //   ...doc.data(),
+      //   TechStack: doc.data().TechStack || [],
+      // }));
+      // const certificateData = certificateSnapshot.docs.map((doc) => doc.data());
+      // setProjects(projectData);
+      // setCertificates(certificateData);
+      // localStorage.setItem("projects", JSON.stringify(projectData));
+      // localStorage.setItem("certificates", JSON.stringify(certificateData));
 
-      const [projectSnapshot, certificateSnapshot] = await Promise.all([
-        getDocs(projectCollection),
-        getDocs(certificateCollection),
-      ]);
-
-      const projectData = projectSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        TechStack: doc.data().TechStack || [],
-      }));
-
-      const certificateData = certificateSnapshot.docs.map((doc) => doc.data());
-
-      setProjects(projectData);
-      setCertificates(certificateData);
-
-      // Store in localStorage
-      localStorage.setItem("projects", JSON.stringify(projectData));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
+      // Temporary dummy data to avoid errors
+      setProjects([]);
+      setCertificates([]);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -195,7 +193,7 @@ export default function FullWidthTabs() {
       className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden"
       id="Portofolio"
     >
-      {/* Header section - unchanged */}
+      {/* Header section */}
       <div
         className="text-center pb-10"
         data-aos="fade-up"
@@ -223,7 +221,7 @@ export default function FullWidthTabs() {
       </div>
 
       <Box sx={{ width: "100%" }}>
-        {/* AppBar and Tabs section - unchanged */}
+        {/* AppBar & Tabs */}
         <AppBar
           position="static"
           elevation={0}
@@ -248,7 +246,6 @@ export default function FullWidthTabs() {
           }}
           className="md:px-4"
         >
-          {/* Tabs remain unchanged */}
           <Tabs
             value={value}
             onChange={handleChange}
@@ -256,7 +253,6 @@ export default function FullWidthTabs() {
             indicatorColor="secondary"
             variant="fullWidth"
             sx={{
-              // Existing styles remain unchanged
               minHeight: "70px",
               "& .MuiTab-root": {
                 fontSize: { xs: "0.9rem", md: "1rem" },
@@ -295,82 +291,62 @@ export default function FullWidthTabs() {
             }}
           >
             <Tab
-              icon={
-                <Code className="mb-2 w-5 h-5 transition-all duration-300" />
-              }
+              icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
               label="Projects"
               {...a11yProps(0)}
             />
             <Tab
-              icon={
-                <Award className="mb-2 w-5 h-5 transition-all duration-300" />
-              }
+              icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
               label="Certificates"
               {...a11yProps(1)}
             />
             <Tab
-              icon={
-                <Boxes className="mb-2 w-5 h-5 transition-all duration-300" />
-              }
+              icon={<Boxes className="mb-2 w-5 h-5 transition-all duration-300" />}
               label="Tech Stack"
               {...a11yProps(2)}
             />
           </Tabs>
         </AppBar>
 
-        <span
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={setValue}
-        >
-          console.log("Projects being displayed:", displayedProjects);
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div
-                data-aos="fade-up"
-                data-aos-duration="1200"
-                className="w-full"
-              >
-                <Projects />
-              </div>
+        {/* Tab Panels – Fixed: removed the broken <span> */}
+        <TabPanel value={value} index={0} dir={theme.direction}>
+          <div className="container mx-auto flex justify-center items-center overflow-hidden">
+            <div data-aos="fade-up" data-aos-duration="1200" className="w-full">
+              <Projects />
             </div>
-          </TabPanel>
+          </div>
+        </TabPanel>
 
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <Certificate />
-          </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <Certificate />
+        </TabPanel>
 
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                {techStacks.map((stack, index) => (
-                  <div
-                    key={index}
-                    data-aos={
-                      index % 3 === 0
-                        ? "fade-up-right"
-                        : index % 3 === 1
-                        ? "fade-up"
-                        : "fade-up-left"
-                    }
-                    data-aos-duration={
-                      index % 3 === 0
-                        ? "1000"
-                        : index % 3 === 1
-                        ? "1200"
-                        : "1000"
-                    }
-                  >
-                    <TechStackIcon
-                      TechStackIcon={stack.icon}
-                      Language={stack.language}
-                    />
-                  </div>
-                ))}
-              </div>
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
+              {techStacks.map((stack, index) => (
+                <div
+                  key={index}
+                  data-aos={
+                    index % 3 === 0
+                      ? "fade-up-right"
+                      : index % 3 === 1
+                      ? "fade-up"
+                      : "fade-up-left"
+                  }
+                  data-aos-duration={
+                    index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"
+                  }
+                >
+                  <TechStackIcon
+                    TechStackIcon={stack.icon}
+                    Language={stack.language}
+                  />
+                </div>
+              ))}
             </div>
-          </TabPanel>
-        </span>
+          </div>
+        </TabPanel>
       </Box>
     </div>
   );
